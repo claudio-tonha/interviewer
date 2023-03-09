@@ -4,7 +4,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import { changeLevel, eFeedbackLevel, IInterviewResult } from '../../pages/home/interview.slice';
+import { changeLevel, eAnswerType, IInterviewResult } from '../../pages/home/interview.slice';
 import { useDispatch } from 'react-redux'
 
 interface IFeedbackLevelOptionsProps {
@@ -16,12 +16,12 @@ const FeedbackLevelOptions = ({ question }: IFeedbackLevelOptionsProps) => {
     const dispatch = useDispatch();
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(changeLevel({ id: question.id, status: (event.target as HTMLInputElement).value as eFeedbackLevel }));
+        dispatch(changeLevel({ id: question.id, status: (event.target as HTMLInputElement).value as eAnswerType }));
     };
 
     return (
         <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label">Level</FormLabel>
+            <FormLabel id="demo-radio-buttons-group-label" style={{ alignSelf: 'start' }}>Could answer?</FormLabel>
             <RadioGroup
                 row
                 aria-labelledby="demo-radio-buttons-group-label"
@@ -29,9 +29,10 @@ const FeedbackLevelOptions = ({ question }: IFeedbackLevelOptionsProps) => {
                 name="radio-buttons-group"
                 onChange={handleChange}
             >
-                <FormControlLabel value={eFeedbackLevel.BEGINNER} control={<Radio />} label={eFeedbackLevel.BEGINNER} />
-                <FormControlLabel value={eFeedbackLevel.INTERMEDIATE} control={<Radio />} label={eFeedbackLevel.INTERMEDIATE} />
-                <FormControlLabel value={eFeedbackLevel.EXPERT} control={<Radio />} label={eFeedbackLevel.EXPERT} />
+                <FormControlLabel value={eAnswerType.YES} control={<Radio />} label={eAnswerType.YES} />
+                <FormControlLabel value={eAnswerType.NO} control={<Radio />} label={eAnswerType.NO} />
+                <FormControlLabel value={eAnswerType.PARTIALLY} control={<Radio />} label={eAnswerType.PARTIALLY} />
+                <FormControlLabel value={eAnswerType.ONLY_GIVING_EXAMPLES} control={<Radio />} label={eAnswerType.ONLY_GIVING_EXAMPLES} />
             </RadioGroup>
         </FormControl>
     );

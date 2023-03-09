@@ -23,17 +23,21 @@ const InterviewQuestion = ({ question }: InterviewQuestionProps) => {
         <div style={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'start'
+            alignItems: 'start',
+            borderBottom: '1px solid #ddd',
+            paddingBottom: '20px'
         }}>
-            <Typography variant='h6'>{`${question.id}. ${question.question}`}</Typography>
             <div style={{ display: 'flex', alignItems: 'center', gap: '50px' }}>
-                <TextareaAutosize
-                    style={{ resize: 'none', outline: 'none' }}
-                    minRows={3}
-                    cols={100}
-                    onChange={handleChange}
-                    value={question.feedback}
-                />
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Typography variant='h6' style={{ marginBottom: '20px', alignSelf: 'start' }}>{`${question.id}. ${question.question}`} </Typography>
+                    <TextareaAutosize
+                        style={{ resize: 'none', outline: 'none' }}
+                        minRows={3}
+                        cols={100}
+                        onChange={handleChange}
+                        value={question.feedback}
+                    />
+                </div>
                 {levelEnabled && <FeedbackLevelOptions question={question} />}
             </div>
         </div>

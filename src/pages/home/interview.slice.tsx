@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-export enum eFeedbackLevel {
-    BEGINNER = 'Beginner',
-    INTERMEDIATE = 'Intermediate',
-    EXPERT = 'Expert'
+export enum eAnswerType {
+    YES = 'Yes',
+    PARTIALLY = 'Partially',
+    NO = 'No',
+    ONLY_GIVING_EXAMPLES = 'Only giving Examples'
 }
 
 export enum eTab {
@@ -14,7 +15,7 @@ export enum eTab {
 
 export interface IInterviewResult {
     id: number;
-    status?: eFeedbackLevel;
+    status?: eAnswerType;
     question: string;
     feedback?: string;
 }
@@ -47,7 +48,7 @@ const InterviewSlice = createSlice({
                 question.feedback = action.payload.feedback
             }
         },
-        changeLevel(state, action: PayloadAction<{ id: number, status: eFeedbackLevel }>) {
+        changeLevel(state, action: PayloadAction<{ id: number, status: eAnswerType }>) {
             const question = state.questions.find(x => x.id === action.payload.id);
             if (question) {
                 question.status = action.payload.status
