@@ -11,7 +11,7 @@ const InterviewQuestions = () => {
         <div style={{ display: 'flex', gap: '20px', flexDirection: 'column' }}>
             {
                 questions.length
-                    ? questions.map(x => <InterviewQuestion question={x} />)
+                    ? questions.map(x => <InterviewQuestion key={x.id} question={x} />)
                     : <div style={{
                         height: "calc(100vh - 48px)", display: 'flex',
                         alignItems: 'center',

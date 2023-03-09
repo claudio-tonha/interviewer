@@ -4,8 +4,9 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import { changeLevel, eAnswerType, IInterviewResult } from '../../pages/home/interview.slice';
-import { useDispatch } from 'react-redux'
+import { updateScore, IInterviewResult } from '../../pages/home/interview.slice';
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../store';
 
 interface IFeedbackLevelOptionsProps {
     question: IInterviewResult
@@ -15,24 +16,22 @@ const FeedbackLevelOptions = ({ question }: IFeedbackLevelOptionsProps) => {
 
     const dispatch = useDispatch();
 
+    const scoringOptions = useSelector((state: RootState) => state.settings.scoringOptions);
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(changeLevel({ id: question.id, status: (event.target as HTMLInputElement).value as eAnswerType }));
+        dispatch(updateScore({ id: question.id, score: (event.target as HTMLInputElement).value }));
     };
 
     return (
         <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label" style={{ alignSelf: 'start' }}>Answer was correct?</FormLabel>
             <RadioGroup
                 row
                 aria-labelledby="demo-radio-buttons-group-label"
-                value={question.status}
+                value={question.score}
                 name="radio-buttons-group"
                 onChange={handleChange}
             >
-                <FormControlLabel value={eAnswerType.YES} control={<Radio />} label={eAnswerType.YES} />
-                <FormControlLabel value={eAnswerType.NO} control={<Radio />} label={eAnswerType.NO} />
-                <FormControlLabel value={eAnswerType.PARTIALLY} control={<Radio />} label={eAnswerType.PARTIALLY} />
-                <FormControlLabel value={eAnswerType.ONLY_GIVING_EXAMPLES} control={<Radio />} label={eAnswerType.ONLY_GIVING_EXAMPLES} />
+                {scoringOptions.split("\n").map(x => <FormControlLabel value={x} control={<Radio />} label={x} />)}
             </RadioGroup>
         </FormControl>
     );

@@ -1,56 +1,52 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-
-export enum eAnswerType {
-    YES = 'Yes',
-    PARTIALLY = 'Partially',
-    NO = 'No',
-    ONLY_GIVING_EXAMPLES = 'Only giving Examples'
-}
-
-export enum eTab {
-    SETTINGS = 0,
-    QUESTIONS = 1
-}
+import { RootState } from '../../store';
 
 export interface IInterviewResult {
     id: number;
-    status?: eAnswerType;
+    score?: string;
     question: string;
 }
 
 interface IInterviewState {
     questions: IInterviewResult[];
-    currentTab: eTab;
+    feedback: string;
 }
 
 const initialState: IInterviewState = {
     questions: [],
-    currentTab: eTab.SETTINGS
+    feedback: ''
 }
+
+export const addQuestions = createAsyncThunk(
+    "interview/addQuestions",
+    async (_, { getState, }) => {
+        const state = getState() as RootState;
+        return state.settings.questions.split("\n");
+    }
+)
 
 const InterviewSlice = createSlice({
     name: "interview",
     initialState,
     reducers: {
-        addQuestions(state, action: PayloadAction<string>) {
-            if (action.payload) {
-                state.questions = action.payload.trim().split("\n").map((question, index) => ({ question, id: index + 1, feedback: '' }));
-                state.currentTab = eTab.QUESTIONS;
-            }
-        },
-        changeLevel(state, action: PayloadAction<{ id: number, status: eAnswerType }>) {
+        updateScore(state, action: PayloadAction<{ id: number, score: string }>) {
             const question = state.questions.find(x => x.id === action.payload.id);
             if (question) {
-                question.status = action.payload.status
+                question.score = action.payload.score
             }
         },
-        changeTab(state, action: PayloadAction<number>) {
-            state.currentTab = action.payload;
+        updateFeedback(state, action: PayloadAction<string>) {
+            state.feedback = action.payload;
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(addQuestions.fulfilled, (state, action) => {
+            state.questions = action.payload.map((question, index) => ({ question, id: index + 1 }));
+        })
     },
 });
 
-export const { addQuestions, changeLevel, changeTab } = InterviewSlice.actions
+export const { updateScore, updateFeedback } = InterviewSlice.actions
 
 export default InterviewSlice.reducer;

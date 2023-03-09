@@ -1,13 +1,13 @@
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { useState } from "react";
 import InterviewQuestions from './features/InterviewQuestions/InterviewQuestions';
 import InterviewSettings from './features/InterviewSettings/InterviewSettings';
 import InterviewCopy from './features/InterviewCopy/InterviewCopy';
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../store';
-import { changeTab, eTab } from '../interview.slice';
+import { updateTab, eTab } from '../settings.slice';
+import InterviewFeedback from './features/InterviewFeedback';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -47,10 +47,10 @@ const InterviewPanel = () => {
     const dispatch = useDispatch();
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        dispatch(changeTab(newValue as eTab));
+        dispatch(updateTab(newValue as eTab));
     };
 
-    const currentTab = useSelector((state: RootState) => state.interview.currentTab);
+    const currentTab = useSelector((state: RootState) => state.settings.currentTab);
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -66,6 +66,7 @@ const InterviewPanel = () => {
             <TabPanel value={currentTab} index={1}>
                 <div style={{ display: 'flex', gap: '50px', flexDirection: 'column' }}>
                     <InterviewQuestions />
+                    <InterviewFeedback />
                     <InterviewCopy />
                 </div>
 

@@ -5,18 +5,26 @@ import copy from 'copy-to-clipboard';
 
 const InterviewCopy = () => {
 
-    const { questions } = useSelector((state: RootState) => state.interview);
+    const questions = useSelector((state: RootState) => state.interview.questions);
+    const feedback = useSelector((state: RootState) => state.interview.feedback);
+    const scoreLabel = useSelector((state: RootState) => state.settings.scoreLabel);
 
     const handleCopyToClipboard = () => {
+        const label = scoreLabel ? `${scoreLabel} ` : "";
+
         const content = questions.map(x => {
             let result = `${x.question}`;
-            if (x.status !== undefined) {
-                result += `\nAnswer was correct? ${x.status}`
+
+            if (x.score !== undefined) {
+                result += ` - ${label}${x.score}`
             }
 
             return result;
-        }).join("\n\n")
-        copy(content);
+        }).join("\n\n");
+
+        const result = `${content}\n\n${feedback}`
+
+        copy(result);
     }
 
     return (
