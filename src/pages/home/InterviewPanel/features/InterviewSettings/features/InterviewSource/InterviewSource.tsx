@@ -17,7 +17,7 @@ const InterviewSource = () => {
         <TextareaAutosize
             placeholder='ADD QUESTIONS HERE'
             minRows={20}
-            style={{ width: '100%', resize: 'none', padding: '5px', overflow: 'auto', maxHeight: '300px' }}
+            style={{ width: '100%', resize: 'none', padding: '5px', overflow: 'auto', maxHeight: '300px', outline: 'none' }}
             onChange={handleChange}
             value={content}
         />

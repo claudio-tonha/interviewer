@@ -28,7 +28,7 @@ const InterviewQuestion = ({ question }: InterviewQuestionProps) => {
             <Typography variant='h6'>{`${question.id}. ${question.question}`}</Typography>
             <div style={{ display: 'flex', alignItems: 'center', gap: '50px' }}>
                 <TextareaAutosize
-                    style={{ resize: 'none', outline: 'none !important' }}
+                    style={{ resize: 'none', outline: 'none' }}
                     minRows={3}
                     cols={100}
                     onChange={handleChange}
