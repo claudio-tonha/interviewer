@@ -11,7 +11,7 @@ const InterviewCopy = () => {
         const content = questions.map(x => {
             let result = `${x.question}\n${x.feedback}`;
             if (x.status !== undefined) {
-                result += `\nCould answer? ${x.status}`
+                result += `\nAnswer was correct? ${x.status}`
             }
 
             return result;

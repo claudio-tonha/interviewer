@@ -15,7 +15,7 @@ const InterviewLevelOptions = () => {
 
     return <div style={{ display: 'flex' }}>
         <FormControlLabel
-            label="Enable feedback level"
+            label="Enable 'answer was correct'"
             control={<Checkbox checked={levelEnabled} onChange={handleChange} />}
         />
 

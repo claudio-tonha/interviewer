@@ -21,7 +21,7 @@ const FeedbackLevelOptions = ({ question }: IFeedbackLevelOptionsProps) => {
 
     return (
         <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label" style={{ alignSelf: 'start' }}>Could answer?</FormLabel>
+            <FormLabel id="demo-radio-buttons-group-label" style={{ alignSelf: 'start' }}>Answer was correct?</FormLabel>
             <RadioGroup
                 row
                 aria-labelledby="demo-radio-buttons-group-label"
