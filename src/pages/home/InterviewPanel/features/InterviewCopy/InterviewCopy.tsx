@@ -20,7 +20,7 @@ const InterviewCopy = () => {
             }
 
             return result;
-        }).join("\n\n");
+        }).join("\n");
 
         const result = `${content}\n\n${feedback}`
 
