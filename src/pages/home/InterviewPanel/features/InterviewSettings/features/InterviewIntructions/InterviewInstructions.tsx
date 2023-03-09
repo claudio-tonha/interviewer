@@ -18,7 +18,6 @@ const InterviewInstructions = () => {
                 Instructions
             </Typography>
             <Typography variant="body2" color="text.secondary">
-                <p>1. Enable 'answer was correct' (yes, no, partially, giving examples)</p>
                 <p>2. Add each question in a line</p>
                 <p>3. Click on 'START' after adding all questions (this action clears the feedbacks)</p>
             </Typography>

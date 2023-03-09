@@ -9,7 +9,7 @@ const InterviewCopy = () => {
 
     const handleCopyToClipboard = () => {
         const content = questions.map(x => {
-            let result = `${x.question}\n${x.feedback}`;
+            let result = `${x.question}`;
             if (x.status !== undefined) {
                 result += `\nAnswer was correct? ${x.status}`
             }

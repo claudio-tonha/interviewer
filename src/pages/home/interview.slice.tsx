@@ -17,18 +17,15 @@ export interface IInterviewResult {
     id: number;
     status?: eAnswerType;
     question: string;
-    feedback?: string;
 }
 
 interface IInterviewState {
     questions: IInterviewResult[];
-    levelEnabled: boolean;
     currentTab: eTab;
 }
 
 const initialState: IInterviewState = {
     questions: [],
-    levelEnabled: false,
     currentTab: eTab.SETTINGS
 }
 
@@ -42,12 +39,6 @@ const InterviewSlice = createSlice({
                 state.currentTab = eTab.QUESTIONS;
             }
         },
-        changeFeedback(state, action: PayloadAction<{ id: number, feedback: string }>) {
-            const question = state.questions.find(x => x.id === action.payload.id);
-            if (question) {
-                question.feedback = action.payload.feedback
-            }
-        },
         changeLevel(state, action: PayloadAction<{ id: number, status: eAnswerType }>) {
             const question = state.questions.find(x => x.id === action.payload.id);
             if (question) {
@@ -56,13 +47,10 @@ const InterviewSlice = createSlice({
         },
         changeTab(state, action: PayloadAction<number>) {
             state.currentTab = action.payload;
-        },
-        toggleLevelEnabled(state) {
-            state.levelEnabled = !state.levelEnabled;
         }
     },
 });
 
-export const { addQuestions, changeFeedback, changeLevel, changeTab, toggleLevelEnabled } = InterviewSlice.actions
+export const { addQuestions, changeLevel, changeTab } = InterviewSlice.actions
 
 export default InterviewSlice.reducer;
